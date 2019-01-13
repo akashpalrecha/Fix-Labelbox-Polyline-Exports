@@ -1,7 +1,7 @@
 # A Script to help fix polyline image segmentation annotations exported from www.labelbox.com
 
-Labelbox is a popular and easy to use tool to make the labelling process streamlined across teams. My team was annotating certain images where we were drawing lines over roads in satellite images. When exporting these annotations from labelbox, we found that instead of leaving the roads as just lines with a specific thickness, labelbox's service exported them as closed figues. 
-
+Labelbox is a popular and easy to use tool to make the labelling process streamlined across teams. My team was annotating certain images where we were drawing lines over roads in satellite images. When exporting these annotations from labelbox, we found that instead of leaving the roads as just lines with a specific thickness, labelbox's service exported them as closed figues. <br>
+![explain](docs/problem_explaintation.gif)<br>
 The script `labelbox_generate_masks.py` solves this issue. <br>
 <br>
 Note: You need to export your segmentations using the JSON option in the export UI on labelbox's website to get this to work.<br>
