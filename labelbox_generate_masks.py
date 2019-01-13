@@ -7,7 +7,7 @@ import pylab
 import os
 import sys
 
-## Usage: $python3 labelbox_generate_masks.py annotation_file image_output_dir mask_output_dir width_of_roads_in_pixels
+## Usage: $python labelbox_generate_masks.py annotation_file image_output_dir mask_output_dir element_name width_of_roads_in_pixels
 
 ## Getting Arguments -------------
 if len(sys.argv) > 1:
@@ -23,7 +23,11 @@ if len(sys.argv) > 3:
 else:
     mask_dir = 'Masks'
 if len(sys.argv) > 4:
-    width = sys.argv[4]
+    element_name = sys.argv[4]
+else:
+    element_name = 'Roads'
+if len(sys.argv) > 5:
+    width = sys.argv[5]
 else:
     width = 25
 ##---------------------------------
@@ -45,13 +49,13 @@ def get_points(points):
     
     return pnts.reshape((-1, 1, 2))
 
-def get_mask(ann, shape, width=25):
+def get_mask(ann, shape, element_name, width=25):
     mask = np.zeros((shape[0], shape[1]))
-    for i in ann['Label']['Roads']:
+    for i in ann['Label'][element_name]:
         cv2.polylines(mask, [get_points(i)], False, 255, width)
     return mask
 
-def generate_data(ann, width, how_many=-1 ,im_dir='Images', mask_dir='Masks', suffix='mmi_', ext='.png'):
+def generate_data(ann, width, element_name, how_many=-1 ,im_dir='Images', mask_dir='Masks', suffix='mmi_', ext='.png'):
     count = 0
     mask_dir = 'Masks'
     im_dir = 'Images'
@@ -69,7 +73,7 @@ def generate_data(ann, width, how_many=-1 ,im_dir='Images', mask_dir='Masks', su
 	    except:
 	    	print('Problematic... Skippping')
 	    	continue
-        mask = get_mask(sample, img.shape, width)
+        mask = get_mask(sample, img.shape, element_name, width)
 
         filename = suffix + str(count) + ext
 
@@ -80,4 +84,4 @@ def generate_data(ann, width, how_many=-1 ,im_dir='Images', mask_dir='Masks', su
     print('Downloaded Dataset Size :' count)
         
 
-generate_data(ann, width, -1, im_dir, mask_dir)
+generate_data(ann, width, element_name, -1, im_dir, mask_dir, element_name)
