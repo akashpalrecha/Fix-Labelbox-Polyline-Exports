@@ -18,7 +18,7 @@ Sys<br>
 Json<br>
 
 ## Usage:
-Usage: $python labelbox_generate_masks.py annotation_file image_output_dir mask_output_dir element_name width_of_roads_in_pixels<br>
+Usage: `$python labelbox_generate_masks.py annotation_file image_output_dir mask_output_dir element_name width_of_roads_in_pixels`<br>
 
 *Defaults :*<br>
 `annotation_file = 'latest.json'` (Name of the exported JSON file from labelbox)<br>
